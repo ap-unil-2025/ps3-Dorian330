@@ -15,6 +15,9 @@ def celsius_to_fahrenheit(celsius):
         float: Temperature in Fahrenheit
     """
     # TODO: Implement this function
+    C = float(celsius)
+    F = (C * 9/5) + 32
+    return float(F)
     pass
 
 
@@ -30,6 +33,9 @@ def fahrenheit_to_celsius(fahrenheit):
         float: Temperature in Celsius
     """
     # TODO: Implement this function
+    F = float(fahrenheit)
+    C = (F - 32) * 5/9
+    return float(C)
     pass
 
 
@@ -51,6 +57,20 @@ def temperature_converter():
     # - Validate input
     # - Perform conversion
     # - Display result rounded to 2 decimal places
+    try:
+        temp = float(input("Enter the temperature value: "))
+    except ValueError:
+        print("Invalid number")
+        return
+
+    unit = input("Enter the current unit (C/F): ").strip().upper()
+
+    if unit == "C":
+        print(round(celsius_to_fahrenheit(temp), 2))
+    elif unit == "F":
+        print(round(fahrenheit_to_celsius(temp), 2))
+    else:
+        print("Invalid unit")
     pass
 
 

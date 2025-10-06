@@ -14,11 +14,14 @@ def get_numbers_from_user():
     numbers = []
 
     while True:
-        # TODO: Get input from user
-        # TODO: Check if user typed 'done'
-        # TODO: Try to convert to float and add to list
-        # TODO: Handle invalid input gracefully
-        pass
+        user_input = input("Entrez un nombre (ou 'done' pour terminer) : ")
+        if user_input.lower() == 'done':  # Si l'utilisateur tape 'done', on arrête la boucle
+            break
+        try:
+            number = float(user_input)  # On essaie de convertir en nombre
+            numbers.append(number)       # Si c'est bon, on ajoute à la liste
+        except ValueError:
+            print("Entrée invalide, veuillez entrer un nombre ou 'done'.")  # Gestion d'erreur
 
     return numbers
 
@@ -40,18 +43,26 @@ def analyze_numbers(numbers):
     Returns:
         dict: Dictionary with analysis results, or None if list is empty
     """
-    if not numbers:
+    if not numbers:  # Si la liste est vide, on retourne None
         return None
 
     analysis = {}
+    analysis['count'] = len(numbers)           # Nombre d'éléments
+    analysis['sum'] = sum(numbers)             # Somme des nombres
+    analysis['average'] = sum(numbers) / len(numbers)  # Moyenne
+    analysis['minimum'] = min(numbers)         # Plus petit nombre
+    analysis['maximum'] = max(numbers)         # Plus grand nombre
 
-    # TODO: Calculate count
-    # TODO: Calculate sum
-    # TODO: Calculate average
-    # TODO: Find minimum
-    # TODO: Find maximum
-    # TODO: Count even numbers (hint: use modulo operator)
-    # TODO: Count odd numbers
+    # Compter pairs et impairs
+    even_count = 0
+    odd_count = 0
+    for num in numbers:
+        if num % 2 == 0:
+            even_count += 1
+        else:
+            odd_count += 1
+    analysis['even_count'] = even_count
+    analysis['odd_count'] = odd_count
 
     return analysis
 
@@ -64,10 +75,18 @@ def display_analysis(analysis):
         analysis (dict): Dictionary containing analysis results
     """
     if not analysis:
+        print("Rien à analyser...")
         return
 
     print("\nAnalysis Results:")
     print("-" * 20)
+    print(f"Count: {analysis['count']}")
+    print(f"Sum: {analysis['sum']}")
+    print(f"Average: {analysis['average']:.2f}")  # 2 décimales
+    print(f"Minimum: {analysis['minimum']}")
+    print(f"Maximum: {analysis['maximum']}")
+    print(f"Even count: {analysis['even_count']}")
+    print(f"Odd count: {analysis['odd_count']}")
 
     # TODO: Display all analysis results in a nice format
     # Example:
@@ -76,7 +95,7 @@ def display_analysis(analysis):
     # Average: 5.00
     # etc.
     pass
-
+# This has just be done with the code before the TODO
 
 def main():
     """Main function to run the number analyzer."""
